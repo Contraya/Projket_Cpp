@@ -182,7 +182,6 @@ void poruszanie(){
     	usleep(10000);
         clear();
         //if(wyjscie || z <= 0) break; 
-        
         }else{ 
         	Koniec();
         	break;
@@ -217,6 +216,10 @@ int main(int argv, char** argc) {
     }
     curs_set(FALSE);
     obromowka();
+    mvprintw(10,40,"Poruszanie W,A,S,D lub strzalki, strzal SPACJA.");
+    mvprintw(11,50,"Wyjscie klawisz Q");
+    refresh();
+    sleep(2);
     tabela();
     
     gracz.gracz = '0';// wygląd
