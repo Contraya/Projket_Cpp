@@ -151,12 +151,18 @@ void sprawdzanieKolizjiPociski(){
 								}
 	}
 }
+void Koniec(){
+	mvprintw(10,45,"Zdobyles %i punktow", punkty);
+	mvprintw(12,45,"za 2 s sie wylaczy");
+	refresh();
+	sleep(2);
+}
 
 //główna pętla gry
 void poruszanie(){
 	int i = 0;
     while(true) {
-    	
+    	if(!wyjscie && z != 0){
     	if(kbhit()) ruch();
     	tworzenieKosmici(i);
     	
@@ -175,9 +181,16 @@ void poruszanie(){
 		refresh();
     	usleep(10000);
         clear();
-        if(wyjscie || z <= 0) break; 
+        //if(wyjscie || z <= 0) break; 
+        
+        }else{ 
+        	Koniec();
+        	break;
         }
+	}
+  
 }
+
 int main(int argv, char** argc) {
 	for(int i = 0; i < 10; i++){
 		magazynek[i].poz.x = -1;
@@ -199,7 +212,7 @@ int main(int argv, char** argc) {
     getmaxyx(stdscr, h, w);
     if(!has_colors()) {
         endwin();
-        printf("Błąd. Twój terminal nie obsługuje kolorów.\n");
+        std::cout << "Błąd. Twój terminal nie obsługuje kolorów.\n";
         exit(-1);
     }
     curs_set(FALSE);
@@ -210,6 +223,7 @@ int main(int argv, char** argc) {
     gracz.poz = {10, 5};// pozycja startowa
     
 	poruszanie();
+	std::cout << "Zdobyłeś : " << punkty << "punktów" << std::endl;
 	
     //Czyszczenie
 	curs_set(true);
